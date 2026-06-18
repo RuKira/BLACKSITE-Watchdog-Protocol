@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKSITE: Watchdog Protocol </title>
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg2: #111114;
+    --bg3: #18181c;
+    --bg4: #1f1f24;
+    --border: #2a2a32;
+    --border2: #38383f;
+    --text: #e8e6e0;
+    --text2: #9a9890;
+    --text3: #5a5860;
+    --accent: #c8a96e;
+    --accent2: #8a7a5a;
+    --blue: #4a8fd4;
+    --blue-bg: #1a2535;
+    --blue-text: #7ab4f0;
+    --purple: #8878cc;
+    --purple-bg: #1e1a2e;
+    --purple-text: #b0a0e8;
+    --teal: #3a9e7a;
+    --teal-bg: #0e2018;
+    --teal-text: #70c8a0;
+    --coral: #c85a30;
+    --coral-bg: #2a1510;
+    --coral-text: #e88860;
+    --red: #c03030;
+    --red-bg: #2a0e0e;
+    --red-text: #e07070;
+    --amber: #c08020;
+    --amber-bg: #261a08;
+    --amber-text: #e0a840;
+    --gray-bg: #1a1a1e;
+    --gray-text: #8a8880;
+    --green: #4a9a3a;
+    --green-bg: #101e0e;
+    --green-text: #80c870;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  /* COVER */
+  .cover {
+    text-align: center;
+    padding: 60px 0 48px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .cover-eyebrow {
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .cover-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -.02em;
+    margin-bottom: 6px;
+  }
+  .cover-sub {
+    font-size: 14px;
+    color: var(--text2);
+    margin-bottom: 28px;
+  }
+  .cover-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+
+  /* SECTION HEADERS */
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin: 48px 0 20px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 12px;
+  }
+  .card-accent { border-left: 3px solid var(--accent); }
+  .card-blue { border-left: 3px solid var(--blue); }
+  .card-purple { border-left: 3px solid var(--purple); }
+  .card-teal { border-left: 3px solid var(--teal); }
+  .card-coral { border-left: 3px solid var(--coral); }
+  .card-red { border-left: 3px solid var(--red); }
+  .card-amber { border-left: 3px solid var(--amber); }
+  .card-gray { border-left: 3px solid var(--border2); }
+
+  /* GRID */
+  .col2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .col3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+  /* TYPE */
+  h2 { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+  h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  h4 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  p { color: var(--text2); margin-bottom: 6px; }
+  strong { color: var(--text); font-weight: 600; }
+  em { color: var(--text2); font-style: italic; }
+
+  /* PILLS */
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin: 3px 4px 3px 0;
+  }
+  .pill-gray { background: var(--gray-bg); color: var(--gray-text); border: 1px solid var(--border); }
+  .pill-blue { background: var(--blue-bg); color: var(--blue-text); }
+  .pill-purple { background: var(--purple-bg); color: var(--purple-text); }
+  .pill-teal { background: var(--teal-bg); color: var(--teal-text); }
+  .pill-coral { background: var(--coral-bg); color: var(--coral-text); }
+  .pill-red { background: var(--red-bg); color: var(--red-text); }
+  .pill-amber { background: var(--amber-bg); color: var(--amber-text); }
+  .pill-green { background: var(--green-bg); color: var(--green-text); }
+  .pill-accent { background: #2a1f0a; color: var(--accent); }
+
+  /* FACTION STRIPS */
+  .faction-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .faction-chip {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .faction-chip .sub {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text3);
+    margin-top: 2px;
+  }
+  .faction-chip.player { border-color: var(--accent2); }
+  .faction-chip.conditional { border-color: var(--border2); }
+  .faction-chip.hostile { border-color: var(--red); background: var(--red-bg); }
+
+  /* ARC ROWS */
+  .arc-row {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .arc-row:last-child { border-bottom: none; }
+  .arc-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ROWS */
+  .row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+
+  /* PHASE CARDS */
+  .phase-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 12px;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 4px;
+    letter-spacing: .05em;
+  }
+  .phase-title { font-size: 15px; font-weight: 600; color: #fff; }
+  .phase-sub { font-size: 12px; color: var(--text3); margin-left: auto; }
+
+  /* MILESTONES */
+  .milestone { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 6px; font-size: 13px; color: var(--text2); }
+  .ms-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+
+  /* CALLSIGN GRID */
+  .callsign-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 10px; }
+  .cs-chip {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 6px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .cs-sub { font-size: 10px; color: var(--text3); font-weight: 400; margin-top: 2px; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+  /* INSET */
+  .inset {
+    background: var(--bg3);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+
+  /* HQ GRID */
+  .hq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .hq-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+
+  /* RAID */
+  .encounter {
+    background: var(--bg3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    border-left: 3px solid var(--border2);
+  }
+  .encounter.e1 { border-left-color: var(--blue); }
+  .encounter.e2 { border-left-color: var(--purple); }
+  .encounter.e3 { border-left-color: var(--red); }
+
+  /* INSPIRATION ROWS */
+  .insp-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+  .insp-dot { width: 3px; height: 3px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; background: var(--accent); }
+
+  /* TONE CARDS */
+  .tone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tone-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 12px;
+    color: var(--text3);
+  }
+
+  @media print {
+    body { background: #fff; color: #111; max-width: 100%; padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">Game Design Document</div>
+  <div class="cover-title">BLACKSITE: Watchdog Protocol</div>
+  <div class="cover-sub">Development Roadmap</div>
+  <div class="cover-tags">
+    <span class="pill pill-gray">Roblox</span>
+    <span class="pill pill-blue">Milsim FPS</span>
+    <span class="pill pill-purple">PvE Co-op</span>
+    <span class="pill pill-amber">Story-driven</span>
+    <span class="pill pill-teal">3-man fireteam</span>
+    <span class="pill pill-red">Grimdark</span>
+    <span class="pill pill-accent">Near-future Earth</span>
+  </div>
+</div>
+
+<!-- 01 IDENTITY -->
+<div class="section-label">01 — Game Identity</div>
+<div class="col2">
+  <div class="card card-accent">
+    <h2>Core concept</h2>
+    <p>A cooperative story-driven milsim FPS set in a fractured near-future Earth. Players are <strong>Watchdog operatives</strong> deployed by <strong>Vanguard Solutions</strong> into a city gone wrong. Over five story arcs they uncover a world-ending conspiracy called <strong>The Harvest</strong> — and must choose who they serve.</p>
+    <p style="margin-top:8px">PvE campaign core. PvX endgame. 3-man fireteam throughout. Boots on the ground — no fantasy powers, no hard classes.</p>
+    <div style="margin-top:12px">
+      <span class="pill pill-blue">PvE Core</span>
+      <span class="pill pill-gray">PvX Endgame</span>
+      <span class="pill pill-teal">3-man Fireteam</span>
+      <span class="pill pill-accent">Gear-based roles</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Inspirations</h2>
+    <div class="insp-row"><div class="insp-dot"></div><div><strong>Escape from Tarkov</strong> — <span style="color:var(--text2)">story through environment, handler tension, side mission conscience, environmental lore</span></div></div>
+    <div class="insp-row"><div class="insp-dot"></div><div><strong>Space Marines 2</strong> — <span style="color:var(--text2)">upgrade mastery, squad feel, escalating threat, power progression</span></div></div>
+    <div class="insp-row"><div class="insp-dot"></div><div><strong>Destiny</strong> — <span style="color:var(--text2)">raids, public events, seasonal live content, exotic loot chase</span></div></div>
+    <div class="insp-row"><div class="insp-dot"></div><div><strong>Dying Light</strong> — <span style="color:var(--text2)">moral weight, defection mechanic, world as character, faction politics</span></div></div>
+    <div class="insp-row"><div class="insp-dot"></div><div><strong>Metal Gear Solid</strong> — <span style="color:var(--text2)">PMC identity, corporate conspiracy, callsign culture, handler arc</span></div></div>
+  </div>
+</div>
+
+<!-- 02 FACTIONS -->
+<div class="section-label">02 — Factions</div>
+<div class="faction-grid">
+  <div class="faction-chip player">🎖️ The Covenant<div class="sub">Player faction — Loyalist · Stay with Vanguard</div></div>
+  <div class="faction-chip player">🌍 The Severed<div class="sub">Player faction — Rogue · Break the contract</div></div>
+  <div class="faction-chip conditional">🪖 Remnant Corps<div class="sub">Conditional · Allied with Covenant</div></div>
+  <div class="faction-chip conditional">☣️ The Changed<div class="sub">Conditional · Allied with Severed</div></div>
+  <div class="faction-chip hostile">🔪 Wraith Division<div class="sub">Always hostile · PMC black arm</div></div>
+  <div class="faction-chip hostile">🔮 The Architects<div class="sub">Always hostile · The Harvest</div></div>
+</div>
+
+<div class="col2">
+  <div class="card card-blue">
+    <h3>Co-op faction rules</h3>
+    <p>In story missions the <strong>host's faction applies</strong> to all squad members — a Covenant player joining a Severed story plays as Severed for that session. Personal faction only matters in your own HQ, open world, and solo play. Co-op access is <strong>never gated</strong> by faction alignment.</p>
+    <p style="margin-top:8px">Mixed-faction squads are valid in all endgame content. The politics are for the open world.</p>
+  </div>
+  <div class="card card-teal">
+    <h3>Reputation system</h3>
+    <p>Tracked <strong>per player, per faction</strong>. Earned through missions, side missions, and world events. Unlocks vendor access, faction dialogue, allied NPC appearances in HQ, and exclusive world event types.</p>
+    <p style="margin-top:8px">Rep is personal — never shared with squadmates. Two players in the same fireteam can have opposing faction reputations.</p>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Faction relationships</h3>
+  <div class="col2" style="margin-top:8px">
+    <div>
+      <div class="inset"><strong style="color:var(--blue-text)">Covenant</strong> allies with <strong>Remnant Corps</strong> — military structure, shared resources, joint assault missions. Hostile to Severed, Changed, Architects, Wraith Division.</div>
+      <div class="inset"><strong style="color:var(--teal-text)">Severed</strong> allies with <strong>The Changed</strong> — mutual survival, underground network, bio-gear access. Hostile to Covenant, Remnant Corps, Architects, Wraith Division.</div>
+    </div>
+    <div>
+      <div class="inset"><strong style="color:var(--gray-text)">Wraith Division</strong> is hostile to <strong>everyone</strong> including Covenant operatives. They answer only to the corporation above Vanguard. They exist to erase loose ends — and both player factions are loose ends.</div>
+      <div class="inset"><strong style="color:var(--purple-text)">The Architects</strong> are hostile to <strong>all life</strong> without exception. A small number of defectors communicate through action and artefacts — they are the key to understanding the Harvest.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 STORY -->
+<div class="section-label">03 — Story & Campaign</div>
+<div class="card card-purple">
+  <h2>The Harvest</h2>
+  <p>The <strong>Architects</strong> — post-human former Vanguard subjects from <strong>Project Sable</strong> — are executing a directive called the Harvest: systematically archiving all complex matter on Earth before initiating <strong>the Fold</strong>, a collapse of this reality that opens a threshold to something on the other side.</p>
+  <p style="margin-top:8px">The anomalies are <strong>collection sites</strong> where reality is being thinned for archiving. <strong>The Changed</strong> are humans accidentally exposed to Harvest energy near active sites — not a bio-weapon, but a preview of what the Harvest does to unprepared biology. <strong>Wraith Division</strong> knows, made a deal, and has been clearing people away from sites ever since. <strong>The handler</strong> knows, and stayed quiet.</p>
+  <div class="divider"></div>
+  <div class="col3">
+    <div>
+      <div class="row"><div class="dot" style="background:var(--teal)"></div><div><strong>Phase 1 — Survey</strong><p style="margin:0;font-size:12px">Active at game start. Anomalies appear. Architects observe and map. Collection sites seeded.</p></div></div>
+    </div>
+    <div>
+      <div class="row"><div class="dot" style="background:var(--amber)"></div><div><strong>Phase 2 — Collection</strong><p style="margin:0;font-size:12px">Arc 3–4. Active archiving. Anomalies expand. The Changed multiply. Reality frays visibly.</p></div></div>
+    </div>
+    <div>
+      <div class="row"><div class="dot" style="background:var(--red)"></div><div><strong>Phase 3 — The Fold</strong><p style="margin:0;font-size:12px">Arc 5 threshold. Raids are set inside active Phase 3 collection sites.</p></div></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <p><strong>Vanguard Solutions:</strong> Public face — private security contractor. Real face — Project Sable created the conditions for the Architects to exist. Wraith Division's deal with them: be in the archive. Survive the Fold as data. The corporation isn't purely evil — they made a terrible calculation and kept making it.</p>
+</div>
+
+<div class="card" style="margin-top:12px">
+  <h2>Five arcs — 10 missions + 5 side missions each</h2>
+  <div style="margin-top:12px">
+    <div class="arc-row">
+      <div class="arc-num">1</div>
+      <div style="flex:1">
+        <h4>Insertion — <em>Fractured city. Remnant Corps. Handler: trusted.</em></h4>
+        <p>Deploy into a fractured near-future city. Establish Watchdog HQ at an abandoned logistics depot. Secure the anomaly perimeter. Remnant Corps is the primary threat. First Architect sighting at Mission 10 — leaves something behind. Handler wants it destroyed. <strong>First player choice.</strong></p>
+        <div style="margin-top:6px"><span class="pill pill-blue">Tutorial arc</span><span class="pill pill-teal">HQ established</span><span class="pill pill-gray">5 side missions</span><span class="pill pill-purple">First Architect encounter</span></div>
+      </div>
+    </div>
+    <div class="arc-row">
+      <div class="arc-num">2</div>
+      <div style="flex:1">
+        <h4>Contamination — <em>Quarantine zone. The Changed. Handler: deflecting.</em></h4>
+        <p>Push into the quarantine district. The Changed aren't mindless — they have hierarchy and memory. A Wraith Division cleanup site is found — the handler glosses over it. The mission asks the squad to do something that hurts survivors inside the zone. The first real moral friction.</p>
+        <div style="margin-top:6px"><span class="pill pill-coral">The Changed introduced</span><span class="pill pill-amber">Handler deflects</span><span class="pill pill-gray">Wraith evidence found</span></div>
+      </div>
+    </div>
+    <div class="arc-row">
+      <div class="arc-num">3</div>
+      <div style="flex:1">
+        <h4>Signal — <em>Anomaly zone. Architects escalate. Handler: cornered.</em></h4>
+        <p>Sent to recover something from a deep anomaly site. Wraith Division is already there. The handler's connection to Wraith Division becomes undeniable. The Harvest is named for the first time. The confrontation. <strong>The defection choice.</strong> The world splits here.</p>
+        <div style="margin-top:6px"><span class="pill pill-red">Defection choice</span><span class="pill pill-purple">Harvest named</span><span class="pill pill-amber">Handler confrontation</span><span class="pill pill-gray">World splits</span></div>
+      </div>
+    </div>
+    <div class="arc-row">
+      <div class="arc-num">4</div>
+      <div style="flex:1">
+        <h4>Consequence — <em>Branches by choice. PvX tensions emerge. Wraith hunts you.</em></h4>
+        <p>Two versions — Covenant and Severed — covering the same events from opposing sides. Both deal with Wraith Division closing in and Phase 2 actively escalating. Neither side can coordinate. Paths converge at Arc 5. Fully playable in co-op regardless of squad faction mix.</p>
+        <div style="margin-top:6px"><span class="pill pill-gray">Branching arc</span><span class="pill pill-gray">Dual perspective</span><span class="pill pill-gray">Convergent ending</span><span class="pill pill-amber">Wraith hunts both sides</span></div>
+      </div>
+    </div>
+    <div class="arc-row">
+      <div class="arc-num">5</div>
+      <div style="flex:1">
+        <h4>Reckoning — <em>All factions. Architect incursion. Handler final scene.</em></h4>
+        <p>Phase 3 is imminent. Covenant and Severed are separately fighting the same enemy with no coordination. The handler's final scene differs by both faction and dominant dialogue tone across the campaign. Campaign ends at the threshold — not yet open. Raids begin.</p>
+        <div style="margin-top:6px"><span class="pill pill-red">Campaign climax</span><span class="pill pill-purple">Threshold visible</span><span class="pill pill-red">Raids unlock</span><span class="pill pill-amber">Handler final scene</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card card-amber" style="margin-top:12px">
+  <h3>Side missions — the player's conscience</h3>
+  <p>Five per arc. <strong>Never handler-assigned.</strong> Come from world contacts, unsecured channels, and environmental discovery. The handler doesn't know you did them. They reveal what Vanguard's orders are actually causing in the world and build rep with non-PMC factions.</p>
+  <p style="margin-top:8px">Side missions are always optional. The world remembers — faction contacts appear in HQ, environments change, NPC dialogue shifts based on your history. Arc 1 sample side missions include: <strong>Shelter</strong> (civilian enclave cut off by Corps patrols), <strong>Deserters</strong> (Corps soldiers who abandoned their unit to survive), <strong>Frequency</strong> (civilian broadcasting about what they saw near the anomaly — first Harvest lore the handler never mentioned).</p>
+</div>
+
+<!-- 04 HQ -->
+<div class="section-label">04 — Watchdog HQ</div>
+<div class="card">
+  <p style="margin-bottom:14px">An <strong>abandoned logistics depot</strong> established in Mission 01. Persists and evolves through all arcs and post-story. The physical space reflects the campaign's progress — rooms unlock, evidence accumulates, faction contacts appear. It is the player's home for the entire game.</p>
+  <div class="hq-grid">
+    <div class="hq-item">
+      <h4>Handler station</h4>
+      <p>Briefing screens, mission boards. Grows more surveillance-heavy through the arcs without comment from the handler.</p>
+    </div>
+    <div class="hq-item">
+      <h4>Operations board</h4>
+      <p>Main and side mission select. Side missions appear without handler flagging — sourced from the world, not Vanguard.</p>
+    </div>
+    <div class="hq-item">
+      <h4>Lore archive</h4>
+      <p>Physical items collected in the field. Datapads, comms logs, Architect artefacts. Buildable across the whole campaign.</p>
+    </div>
+    <div class="hq-item">
+      <h4>Armoury</h4>
+      <p>Loadout and weapon selection. Placeholder for the full gear system in a future update.</p>
+    </div>
+    <div class="hq-item">
+      <h4>The back room</h4>
+      <p>Locked at game start. Opens post-defection. The squad's real plans — away from the handler's screens.</p>
+    </div>
+    <div class="hq-item">
+      <h4>Faction contacts</h4>
+      <p>NPCs who appear as reputation grows. A Changed survivor. A Corps deserter. A defector Architect, eventually.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 05 OPERATIVE -->
+<div class="section-label">05 — Operative Identity</div>
+<div class="col2">
+  <div class="card">
+    <h2>Character setup</h2>
+    <p>Players input a <strong>real name</strong> at character creation. The game assigns a <strong>callsign</strong> from a curated pool — appropriate to the world's tone, safe for Roblox. The handler uses the real name in private briefings. Everyone else uses the callsign.</p>
+    <p style="margin-top:8px">In a squad, individual callsigns are replaced by a shared <strong>squad callsign</strong> — you become a unit. A squad assigned SABLE without knowing what Project Sable was, and then finding out in Arc 3, is the kind of detail that rewards attention.</p>
+    <div class="divider"></div>
+    <h4>Sample callsign pool</h4>
+    <div class="callsign-grid">
+      <div class="cs-chip">GHOST<div class="cs-sub">solo</div></div>
+      <div class="cs-chip">ROOK<div class="cs-sub">solo</div></div>
+      <div class="cs-chip">VALE<div class="cs-sub">solo</div></div>
+      <div class="cs-chip">PIKE<div class="cs-sub">solo</div></div>
+      <div class="cs-chip">WREN<div class="cs-sub">solo</div></div>
+      <div class="cs-chip">FORGE<div class="cs-sub">solo</div></div>
+      <div class="cs-chip">IRON<div class="cs-sub">squad</div></div>
+      <div class="cs-chip">STORM<div class="cs-sub">squad</div></div>
+      <div class="cs-chip">DUSK<div class="cs-sub">squad</div></div>
+      <div class="cs-chip">SABLE<div class="cs-sub">squad</div></div>
+      <div class="cs-chip">NULL<div class="cs-sub">solo</div></div>
+      <div class="cs-chip">CREST<div class="cs-sub">squad</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Dialogue system</h2>
+    <p>Four tones. No morality meter — tone affects how the handler responds and what they inadvertently reveal, not whether the player succeeds. The handler's final Arc 3 speech changes based on which tone dominated the campaign.</p>
+    <div style="margin-top:12px">
+      <div class="tone-grid">
+        <div class="tone-card">
+          <h4 style="color:var(--blue-text)">Professional</h4>
+          <p style="font-size:12px">Efficient, mission-focused. Handler's favourite early on — and the most unsettling to them by Arc 3 when you're still professional about things they hoped would rattle you.</p>
+        </div>
+        <div class="tone-card">
+          <h4 style="color:var(--amber-text)">Skeptical</h4>
+          <p style="font-size:12px">Questions discrepancies. Handler over-explains, inadvertently revealing more than they intended. Unlocks additional handler dialogue throughout.</p>
+        </div>
+        <div class="tone-card">
+          <h4 style="color:var(--red-text)">Defiant</h4>
+          <p style="font-size:12px">Pushes back directly. Handler respects it early, grows nervous later. A consistently Defiant player gets flagged in a Wraith Division document found in Arc 3.</p>
+        </div>
+        <div class="tone-card">
+          <h4 style="color:var(--teal-text)">Observant</h4>
+          <p style="font-size:12px">Describes what you notice. Unlocks unique environmental callouts and lore details mid-mission. Rewards players who pay attention to the world.</p>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <h4>Launch customisation</h4>
+    <p style="font-size:12px">Real name input. Game-assigned callsign. Roblox avatar base with tactical gear overlay. Faction cosmetic applied post-Arc 3 (Covenant or Severed visual identity, colour scheme, insignia). Default dialogue tone settable but overridable per conversation.</p>
+  </div>
+</div>
+
+<!-- 06 CONTENT SYSTEMS -->
+<div class="section-label">06 — Content Systems</div>
+
+<div class="card card-red">
+  <h2>Raid 1 — The Threshold Gate</h2>
+  <p style="margin-bottom:12px">Unlocks post-campaign. Set inside the Arc 1 anomaly, now fully expanded. Phase 3 is active inside — reality is visibly wrong. Three encounters. First look at what the Fold actually does to a place. 3-man. Weekly lockout, farmable after first clear.</p>
+  <div class="encounter e1">
+    <h4>Encounter 1 — The Collection Floor</h4>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:6px">Traversal + mechanics introduction</p>
+    <p>Navigate the outer collection site where Harvest energy is pulling matter apart and reassembling it. Mechanic: players carry <strong>anchor points</strong> that stabilise their position in reality while Architect Sentinels try to reclaim them. Drop the anchor and the world starts folding around you.</p>
+    <div style="margin-top:6px"><span class="pill pill-blue">Anchor mechanic</span><span class="pill pill-blue">Sentinel enemies</span><span class="pill pill-blue">Environmental hazard</span></div>
+  </div>
+  <div class="encounter e2">
+    <h4>Encounter 2 — The Warden</h4>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:6px">Mid-boss — mechanic escalation</p>
+    <p>An Architect Warden initiates localised Fold events, temporarily pulling one player into a fragmented solo reality while the other two maintain anchors. Coordination required. The Warden has visible human proportions beneath its restructured exterior — a reminder of Project Sable.</p>
+    <div style="margin-top:6px"><span class="pill pill-purple">Split mechanic</span><span class="pill pill-purple">Solo fragment phase</span><span class="pill pill-purple">Anchor dependency</span></div>
+  </div>
+  <div class="encounter e3">
+    <h4>Encounter 3 — The Threshold</h4>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:6px">Final boss — all mechanics combined</p>
+    <p>The Architect Prime. The threshold is visible behind it — a tear in reality showing something on the other side the game never lets you see clearly. The defector Architect appears mid-fight to keep the threshold from fully opening. When the Prime dies, the defector closes the threshold. Looks at the squad. Leaves. No words. Raid ends.</p>
+    <div style="margin-top:6px"><span class="pill pill-red">All mechanics combined</span><span class="pill pill-red">Threshold visible</span><span class="pill pill-red">Defector appears</span><span class="pill pill-amber">Lore: Project Sable files</span></div>
+  </div>
+</div>
+
+<div class="col2" style="margin-top:12px">
+  <div class="card">
+    <h2>World events</h2>
+    <div class="row"><div class="dot" style="background:var(--purple)"></div><div><strong>Harvest Ritual</strong><p style="font-size:12px">Rare, unannounced. Architects perform a collection event in a live map. Players stumble into it. Interrupt for unique loot. Ignore it and nearby enemies are empowered.</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--blue)"></div><div><strong>Incursion (public event)</strong><p style="font-size:12px">Timed, map-visible. All players in the world can join. Waves, objective, final boss. Hidden heroic trigger makes it harder with better rewards.</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--teal)"></div><div><strong>Seasonal events</strong><p style="font-size:12px">Story-tied content drops. New map areas, faction activity, time-limited missions. Tied to raid narrative. New loot pool each season.</p></div></div>
+  </div>
+  <div class="card">
+    <h2>PvX — Covenant vs Severed</h2>
+    <p style="margin-bottom:10px">Unlocks post-Arc 3. All PvX is opt-in by entering contested zones. Both factions have access to all PvX activities.</p>
+    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><strong>Territory control</strong><p style="font-size:12px">Key zones flip between factions on player action. Holding zones unlocks faction events and resources.</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><strong>Bounty hunts</strong><p style="font-size:12px">High-rep players generate bounties. Opposing faction can track and engage. Clear bounties through world events.</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><strong>Extraction raids</strong><p style="font-size:12px">Loyalists raid Severed safe houses. Asymmetric — attackers have numbers, defenders know the layout.</p></div></div>
+  </div>
+</div>
+
+<!-- 07 FUTURE SYSTEMS -->
+<div class="section-label">07 — Future Systems (post-launch)</div>
+<div class="col2">
+  <div class="card card-amber">
+    <h3>Gear system</h3>
+    <p style="margin-bottom:8px">Six rarity tiers with levellable perks earned through use. Drop-based. Mod slots on Epic and above. Exotic limit: <strong>one weapon, one armour piece</strong> simultaneously — hard cap, never broken.</p>
+    <div class="row"><div class="dot" style="background:var(--gray-text)"></div><div><p style="font-size:12px"><strong>Common</strong> — base stats, no perks</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px"><strong>Uncommon</strong> — 1 perk slot</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--blue)"></div><div><p style="font-size:12px"><strong>Rare</strong> — 2 perk slots</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--purple)"></div><div><p style="font-size:12px"><strong>Epic</strong> — 3 perks + 1 mod slot</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--coral)"></div><div><p style="font-size:12px"><strong>Legendary</strong> — 3 perks + 2 mod slots + unique trait</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--amber)"></div><div><p style="font-size:12px"><strong>Exotic</strong> — unique exotic perk, 1 per loadout slot max</p></div></div>
+  </div>
+  <div class="card">
+    <h3>Skill system</h3>
+    <p style="margin-bottom:8px">Tarkov-style use-based progression. No classes — gear defines role. Skills level through doing. Cap per level bracket so you can't max everything early.</p>
+    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><p style="font-size:12px">Endurance, Recoil Control, Medical Speed, Stealth, Heavy Weapons and more</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><p style="font-size:12px">A player who keeps patching teammates becomes a better medic. A player who always flanks becomes harder to detect. Playstyle shapes the soldier.</p></div></div>
+    <div class="divider"></div>
+    <h3>PvP expansion</h3>
+    <p>Built on the PvX foundation. Structured modes — extraction, territory control, bounty ranked. Potential for Wraith Division as a PvP antagonist NPC faction targeting both sides in contested zones.</p>
+  </div>
+</div>
+
+<div class="card" style="margin-top:12px">
+  <h3>Deep customisation (post-launch)</h3>
+  <div class="col3">
+    <div><h4>Cosmetic gear</h4><p style="font-size:12px">Weapon skins, armour sets, helmet variants. Faction-aesthetic sets — Remnant Corps surplus, Changed bio-armour aesthetic, Architect-derived energy gear.</p></div>
+    <div><h4>Title system</h4><p style="font-size:12px">"Ghost of Sable", "The Severed", "Watchdog Actual" — earned through gameplay, displayed under callsign. Tells other players your history at a glance.</p></div>
+    <div><h4>Emblems & patches</h4><p style="font-size:12px">Earned by completing story arcs, raids, and side mission chains. Displayed on armour. Callsign patch visual on gear. Cosmetic only — never gameplay.</p></div>
+  </div>
+</div>
+
+<!-- 08 ROADMAP -->
+<div class="section-label">08 — Development Roadmap</div>
+
+<div class="phase-card">
+  <div class="phase-header">
+    <span class="phase-badge" style="background:var(--green-bg);color:var(--green-text)">PHASE 1</span>
+    <span class="phase-title">Foundation</span>
+    <span class="phase-sub">Core playable build — everything needed to feel right</span>
+  </div>
+  <div class="col2">
+    <div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>FPS core — movement, shooting, cover system, squad comms HUD</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Watchdog HQ — all rooms, operations board, lore archive shell</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Arc 1 — all 10 missions + 5 side missions fully playable</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Remnant Corps enemy AI — suppression, flanking, cover use</div>
+    </div>
+    <div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Operative creation — name input, callsign assignment, avatar overlay</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Dialogue system — four tones, handler responses, tone tracking</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Co-op framework — 3-man fireteam, squad callsign, story faction lock</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>World map — Arc 1 city, anomaly zone, HQ exterior</div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-card">
+  <div class="phase-header">
+    <span class="phase-badge" style="background:var(--blue-bg);color:var(--blue-text)">PHASE 2</span>
+    <span class="phase-title">Campaign</span>
+    <span class="phase-sub">Full story delivered — all factions active</span>
+  </div>
+  <div class="col2">
+    <div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Arcs 2–5 — all missions, side missions, cutscenes</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Arc 4 branching — Covenant and Severed versions</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>The Changed AI — swarm, ambush, brute variants</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Architect AI — Sentinels, Wardens, phase-shift behaviour</div>
+    </div>
+    <div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Wraith Division AI — elite ambush, extraction denial</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Faction reputation system — tracking, vendors, HQ contacts</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Full HQ evolution — rooms unlock through arcs, lore archive fills</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Faction cosmetics — Covenant and Severed visual identity applied post-Arc 3</div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-card">
+  <div class="phase-header">
+    <span class="phase-badge" style="background:var(--amber-bg);color:var(--amber-text)">PHASE 3</span>
+    <span class="phase-title">Endgame</span>
+    <span class="phase-sub">Post-story content layer — reasons to stay</span>
+  </div>
+  <div class="col2">
+    <div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--amber)"></div>Raid 1 — The Threshold Gate, all three encounters</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--amber)"></div>Harvest Ritual world event — rare spawn, interrupt mechanic</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--amber)"></div>Incursion public event — timed, heroic trigger, communal reward</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--amber)"></div>PvX foundation — territory control, bounty hunt system</div>
+    </div>
+    <div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--amber)"></div>Extraction denial — Wraith Division active in PvX zones</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--amber)"></div>Seasonal event framework — Season 1 tied to Raid 1 lore</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--amber)"></div>Raid 2 seed — artefact from Raid 1 points forward</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--amber)"></div>Weekly lockout and reward systems</div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-card">
+  <div class="phase-header">
+    <span class="phase-badge" style="background:var(--purple-bg);color:var(--purple-text)">PHASE 4</span>
+    <span class="phase-title">Expansion</span>
+    <span class="phase-sub">Live service engine — depth and sustainability</span>
+  </div>
+  <div class="col2">
+    <div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--purple)"></div>Full gear system — rarity tiers, perk levelling, mod slots, exotics</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--purple)"></div>Skill system — use-based Tarkov-style progression</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--purple)"></div>Structured PvP modes — extraction, territory, bounty ranked</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--purple)"></div>Raid 2 and beyond — seasonal story continuation</div>
+    </div>
+    <div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--purple)"></div>Deep cosmetic system — skins, armour sets, emblems, titles</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--purple)"></div>Title system — "Ghost of Sable", "Watchdog Actual", and more</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--purple)"></div>Architect defector faction seed — future sixth faction</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--purple)"></div>Cross-arc replay with cumulative world state tracking</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  BLACKSITE: Watchdog Protocol &nbsp;·&nbsp; Vanguard Solutions &nbsp;·&nbsp; Watchdog operative eyes only &nbsp;·&nbsp; CONFIDENTIAL
+</div>
+
+</body>
+</html>
