@@ -309,6 +309,8 @@
     <span class="pill pill-teal">3-man fireteam</span>
     <span class="pill pill-red">Grimdark</span>
     <span class="pill pill-accent">Near-future Earth</span>
+    <span class="pill pill-green">Open World</span>
+    <span class="pill pill-coral">Bounty System</span>
   </div>
 </div>
 
@@ -569,14 +571,193 @@
   <div class="card">
     <h2>PvX — Covenant vs Severed</h2>
     <p style="margin-bottom:10px">Unlocks post-Arc 3. All PvX is opt-in by entering contested zones. Both factions have access to all PvX activities.</p>
-    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><strong>Territory control</strong><p style="font-size:12px">Key zones flip between factions on player action. Holding zones unlocks faction events and resources.</p></div></div>
-    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><strong>Bounty hunts</strong><p style="font-size:12px">High-rep players generate bounties. Opposing faction can track and engage. Clear bounties through world events.</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><strong>Territory control</strong><p style="font-size:12px">Key open world zones flip between factions on player action. Holding zones unlocks faction events and resources.</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><strong>Bounty system</strong><p style="font-size:12px">Generated automatically through PvX actions. See Section 09 for full bounty system design.</p></div></div>
     <div class="row"><div class="dot" style="background:var(--accent)"></div><div><strong>Extraction raids</strong><p style="font-size:12px">Loyalists raid Severed safe houses. Asymmetric — attackers have numbers, defenders know the layout.</p></div></div>
   </div>
 </div>
 
-<!-- 07 FUTURE SYSTEMS -->
-<div class="section-label">07 — Future Systems (post-launch)</div>
+<!-- 09 OPEN WORLD -->
+<div class="section-label">09 — Open World</div>
+<div class="card card-teal">
+  <h2>World structure</h2>
+  <p style="margin-bottom:10px">Blacksite is an <strong>open world game</strong> with instanced exceptions. The city and its expanding districts are a shared persistent world — players encounter each other naturally, cooperate freely, and compete in PvX zones without loading screens. Only <strong>campaign missions</strong> (main and side), and <strong>raids</strong> are instanced. Everything else — world events, territory control, bounty hunts, faction activities, exploration — happens in the open world.</p>
+  <div class="col2">
+    <div>
+      <h3>What is open world</h3>
+      <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">All world events — Harvest Rituals, Incursions, seasonal activities</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">Territory control and PvX zones</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">Bounty system — hunting and being hunted</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">Faction rep activities and allied NPC encounters</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">Exploration, environmental lore, anomaly sites</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">HQ — shared with invited players</p></div></div>
+    </div>
+    <div>
+      <h3>What is instanced</h3>
+      <div class="row"><div class="dot" style="background:var(--red)"></div><div><p style="font-size:12px">All campaign missions — main and side, Arc 1–5</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--red)"></div><div><p style="font-size:12px">All raids — 3-man private instances</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--border2)"></div><div><p style="font-size:12px">Everything else is shared and persistent</p></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:12px">
+  <h2>Districts — world expands with story</h2>
+  <p style="margin-bottom:12px">The open world grows as arcs unlock. Each arc opens a new district — players who've completed further arcs can explore ahead, but story content within those districts is gated to players who've reached them. The world always feels larger than the current mission.</p>
+  <div class="col3">
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;">
+      <h4 style="color:var(--teal-text)">Arc 1 — Industrial District</h4>
+      <p style="font-size:12px">The starting zone. Remnant Corps-held ruins, the logistics depot HQ, the first anomaly zone. Available from day one.</p>
+      <div style="margin-top:6px"><span class="pill pill-teal">Available at launch</span></div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;">
+      <h4 style="color:var(--coral-text)">Arc 2 — Quarantine Zone</h4>
+      <p style="font-size:12px">The Changed territory. Collapsed hospitals, underground warrens, contaminated streets. Unlocks with Arc 2 progress.</p>
+      <div style="margin-top:6px"><span class="pill pill-coral">Unlocks Arc 2</span></div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;">
+      <h4 style="color:var(--purple-text)">Arc 3 — Anomaly Zones</h4>
+      <p style="font-size:12px">Deep Architect territory. Reality frays visibly. Collection sites active. Phase 2 Harvest energy visible in the environment.</p>
+      <div style="margin-top:6px"><span class="pill pill-purple">Unlocks Arc 3</span></div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;">
+      <h4 style="color:var(--amber-text)">Arc 4 — Contested Zones</h4>
+      <p style="font-size:12px">PvX territory opens fully here. Covenant and Severed contest the same districts. Wraith Division patrols escalate.</p>
+      <div style="margin-top:6px"><span class="pill pill-amber">Unlocks Arc 4</span></div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;">
+      <h4 style="color:var(--red-text)">Arc 5 — The Threshold</h4>
+      <p style="font-size:12px">The innermost anomaly site. Phase 3 activity visible at the edges. The most dangerous open world zone. Raid 1 entrance is here.</p>
+      <div style="margin-top:6px"><span class="pill pill-red">Unlocks Arc 5</span></div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;">
+      <h4 style="color:var(--blue-text)">Post-story — Full map</h4>
+      <p style="font-size:12px">All districts open. Seasonal content can add new areas. The world continues reacting to the Harvest's progression.</p>
+      <div style="margin-top:6px"><span class="pill pill-blue">Post-campaign</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 MISSION 1 & HQ -->
+<div class="section-label">10 — Mission 1 & Watchdog HQ</div>
+<div class="card card-accent">
+  <h2>Mission 1 — Beachhead</h2>
+  <p style="margin-bottom:12px">The game opens directly into a <strong>cutscene</strong>. No menu. No loading screen preamble. The player spawns into the world mid-briefing — the handler's voice comes in over comms before the screen fully fades up. The tutorial and story are the same thing from the first second.</p>
+  <div class="col2">
+    <div>
+      <h3>Cutscene opening</h3>
+      <p>A transport. Darkness. The handler's voice — calm, professional, reading coordinates. The operative's hands check a weapon in the dark. The ramp drops. A fractured city skyline. First dialogue choice appears before boots hit the ground — the callsign moment. The handler assigns it based on your response. You never choose it yourself.</p>
+      <p style="margin-top:8px">No tutorial pop-ups during the cutscene. The game trusts the player to move when it's time to move.</p>
+    </div>
+    <div>
+      <h3>Mission structure</h3>
+      <div class="row"><div class="dot" style="background:var(--accent)"></div><div><p style="font-size:12px"><strong>Objective 1</strong> — Clear the Remnant Corps forward camp on the city outskirts. Combat tutorial embedded naturally in the encounter design.</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--accent)"></div><div><p style="font-size:12px"><strong>Objective 2</strong> — Push to the logistics depot. Handler guides via comms. Environmental lore begins — something happened here before the Corps arrived.</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--accent)"></div><div><p style="font-size:12px"><strong>Objective 3</strong> — Secure and establish the depot as Watchdog HQ. The mission ends when the HQ is operational. The world opens.</p></div></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <h3>What unlocks after Mission 1</h3>
+  <div class="col3">
+    <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">HQ fully accessible — all ground floor rooms open</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">Mission 2 available on the operations board</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">Open world Industrial District accessible</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">HQ invite function unlocked</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">Side missions begin appearing on the board</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px">First lore item placed in the archive</p></div></div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:12px">
+  <h2>Watchdog HQ — detail</h2>
+  <p style="margin-bottom:12px">Established in Mission 1. The physical space evolves through all five arcs and persists post-story. Rooms unlock, evidence accumulates on the walls, faction contacts appear. It is the player's home for the entire game — and the one place the open world can't touch.</p>
+  <div class="col2">
+    <div>
+      <h3>Invite system</h3>
+      <p>The <strong>squad leader invites players by Roblox username</strong>. Invited players join the HQ session as guests — they can access the operations board, lore archive, and armoury, but the HQ's faction alignment and story state reflect the owner's progress. A player further behind in the story visiting a more advanced HQ can see rooms and contacts they haven't unlocked yet — a deliberate spoiler-lite preview that rewards exploration.</p>
+      <p style="margin-top:8px">HQ sessions are private by default. The leader can open slots at any time. Maximum occupancy mirrors the fireteam cap — 3 players.</p>
+    </div>
+    <div>
+      <h3>Rooms & evolution</h3>
+      <div style="background:var(--bg3);border-radius:6px;padding:10px 12px;margin-bottom:6px;font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Handler station</strong> — Active from Mission 1. Briefing screens, mission board. Surveillance equipment appears quietly through Arc 2–3 without comment.</div>
+      <div style="background:var(--bg3);border-radius:6px;padding:10px 12px;margin-bottom:6px;font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Operations board</strong> — Main and side mission select. Side missions appear from non-handler sources — no Vanguard flagging.</div>
+      <div style="background:var(--bg3);border-radius:6px;padding:10px 12px;margin-bottom:6px;font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Lore archive</strong> — Physical artefacts, datapads, comms logs. Builds across the full campaign. The Arc 1 Mission 10 object lives here.</div>
+      <div style="background:var(--bg3);border-radius:6px;padding:10px 12px;margin-bottom:6px;font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Armoury</strong> — Loadout selection. Placeholder for full gear system update.</div>
+      <div style="background:var(--bg3);border-radius:6px;padding:10px 12px;margin-bottom:6px;font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Faction contacts</strong> — NPCs who appear as rep grows. Changed survivor, Corps deserter, defector Architect eventually.</div>
+      <div style="background:var(--bg3);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--text2)"><strong style="color:var(--text)">The back room</strong> — Locked until post-defection. The squad's real operations, away from handler screens.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 11 BOUNTY SYSTEM -->
+<div class="section-label">11 — Bounty System</div>
+<div class="card card-coral">
+  <h2>How it works</h2>
+  <p style="margin-bottom:12px">Inspired by <strong>The Division's Dark Zone</strong> and <strong>Sea of Thieves</strong>. The bounty system creates emergent PvP tension in the open world without forcing it on PvE players. It operates on two sides — the <strong>Marked</strong> (players with active bounties) and <strong>Bounty Hunters</strong> (players who opt in to hunt them).</p>
+  <div class="col2">
+    <div>
+      <h3>Getting a bounty — the Marked</h3>
+      <p style="margin-bottom:8px">Bounties are generated <strong>automatically</strong> through PvX actions in the open world. No opt-in required — if you're playing aggressively in the world, you attract attention.</p>
+      <div class="row"><div class="dot" style="background:var(--coral)"></div><div><p style="font-size:12px">Capturing territory from the opposing faction</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--coral)"></div><div><p style="font-size:12px">Killing opposing faction players in contested zones</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--coral)"></div><div><p style="font-size:12px">Disrupting a Harvest Ritual or Incursion event</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--coral)"></div><div><p style="font-size:12px">High faction rep actions that draw Wraith Division attention</p></div></div>
+      <p style="margin-top:8px;font-size:12px;color:var(--text3)">Bounty value scales with the actions that generated it. A player who captured three territories and killed five opponents has a significantly higher bounty than someone who contested a single zone.</p>
+    </div>
+    <div>
+      <h3>Becoming a Bounty Hunter</h3>
+      <p style="margin-bottom:8px">Bounty Hunters <strong>opt in</strong> by interacting with a Bounty Board — physical boards placed in the open world, one per district. Toggle on, toggle off. Once active:</p>
+      <div class="row"><div class="dot" style="background:var(--amber)"></div><div><p style="font-size:12px"><strong>You always know where your target is</strong> — a directional indicator and approximate distance. No hiding.</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--amber)"></div><div><p style="font-size:12px">You are flagged as a Bounty Hunter to other players — visible status</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--amber)"></div><div><p style="font-size:12px">Killing your target turns in the bounty automatically — reward issued on kill</p></div></div>
+      <div class="row"><div class="dot" style="background:var(--amber)"></div><div><p style="font-size:12px">You can toggle off at any Bounty Board — exits the hunter role</p></div></div>
+      <p style="margin-top:8px;font-size:12px;color:var(--text3)">Non-hunters are never targeted by the bounty system. PvE players can ignore it entirely.</p>
+    </div>
+  </div>
+</div>
+
+<div class="col2" style="margin-top:12px">
+  <div class="card">
+    <h3>Bounty value — grow and shrink</h3>
+    <p style="margin-bottom:8px">A bounty is not binary. It has a <strong>value</strong> that grows and shrinks based on ongoing behaviour.</p>
+    <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px"><strong>Grows</strong> — continued PvX actions, territory grabs, kills, surviving as a target</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--teal)"></div><div><p style="font-size:12px"><strong>Grows</strong> — completing bounty events while marked (see below)</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--red)"></div><div><p style="font-size:12px"><strong>Shrinks slightly</strong> — being killed by a Bounty Hunter. Not reset, just reduced. You keep your history.</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--red)"></div><div><p style="font-size:12px"><strong>Clears</strong> — turning yourself in at a faction contact for a partial payout, or the bounty naturally decaying if you go inactive</p></div></div>
+    <div class="divider"></div>
+    <p style="font-size:12px;color:var(--text2)">The longer you survive as a Marked player the more valuable your bounty becomes — creating a risk/reward loop where the highest-value targets are also the most experienced at not getting caught.</p>
+  </div>
+  <div class="card">
+    <h3>Bounty events — in-world activities</h3>
+    <p style="margin-bottom:8px">Special open world events exist <strong>specifically for the bounty ecosystem</strong>. Both Marked players and Bounty Hunters can participate.</p>
+    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><p style="font-size:12px"><strong>Contraband drops</strong> — A supply cache appears in a contested zone. Marked players who secure it increase their bounty value. Hunters who intercept it get a bonus payout.</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><p style="font-size:12px"><strong>Signal flares</strong> — A Marked player who activates a flare broadcasts their location to all Hunters — in exchange for a large bounty value increase if they survive the resulting attention window.</p></div></div>
+    <div class="row"><div class="dot" style="background:var(--accent)"></div><div><p style="font-size:12px"><strong>Extraction point</strong> — A timed window where a Marked player can cash out their full bounty value by reaching an extraction point. Hunters know where it is. High risk, best reward.</p></div></div>
+    <div class="divider"></div>
+    <p style="font-size:12px;color:var(--text3)">Dying in a bounty event does not reset the bounty. It only costs the event reward — the bounty value itself carries forward.</p>
+  </div>
+</div>
+
+<div class="card" style="margin-top:12px">
+  <h3>Rewards</h3>
+  <div class="col3">
+    <div>
+      <h4>Marked players earn</h4>
+      <p style="font-size:12px">Escalating bounty-exclusive cosmetic rewards for reaching value thresholds. The longer you survive the more you unlock. Turning in or cashing out pays faction currency. Unique titles — "Ghost", "The Hunted", "Marked" — earned by surviving at high bounty value.</p>
+    </div>
+    <div>
+      <h4>Bounty Hunters earn</h4>
+      <p style="font-size:12px">Payout scales with the bounty value of the target killed. Hunter-exclusive cosmetics for total value collected across all hunts. A ranked Hunter leaderboard per season — top Hunters get unique seasonal rewards.</p>
+    </div>
+    <div>
+      <h4>What bounties never affect</h4>
+      <p style="font-size:12px">Gear, stats, story progress, faction reputation, raid access. The bounty system is entirely <strong>cosmetic and currency reward</strong>. PvE players who never engage with it lose nothing. It is additive, never punitive.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 12 FUTURE SYSTEMS -->
+<div class="section-label">12 — Future Systems (post-launch)</div>
 <div class="col2">
   <div class="card card-amber">
     <h3>Gear system</h3>
@@ -608,8 +789,8 @@
   </div>
 </div>
 
-<!-- 08 ROADMAP -->
-<div class="section-label">08 — Development Roadmap</div>
+<!-- 13 ROADMAP -->
+<div class="section-label">13 — Development Roadmap</div>
 
 <div class="phase-card">
   <div class="phase-header">
@@ -620,7 +801,9 @@
   <div class="col2">
     <div>
       <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>FPS core — movement, shooting, cover system, squad comms HUD</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Mission 1 opening cutscene — spawns directly into story, no menus</div>
       <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Watchdog HQ — all rooms, operations board, lore archive shell</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>HQ invite system — squad leader invites by Roblox username, max 3</div>
       <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Arc 1 — all 10 missions + 5 side missions fully playable</div>
       <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Remnant Corps enemy AI — suppression, flanking, cover use</div>
     </div>
@@ -628,7 +811,8 @@
       <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Operative creation — name input, callsign assignment, avatar overlay</div>
       <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Dialogue system — four tones, handler responses, tone tracking</div>
       <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Co-op framework — 3-man fireteam, squad callsign, story faction lock</div>
-      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>World map — Arc 1 city, anomaly zone, HQ exterior</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>Open world — Industrial District, persistent shared world</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--teal)"></div>World map — Arc 1 city, anomaly zone perimeter, HQ exterior</div>
     </div>
   </div>
 </div>
@@ -643,6 +827,7 @@
     <div>
       <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Arcs 2–5 — all missions, side missions, cutscenes</div>
       <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Arc 4 branching — Covenant and Severed versions</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>District expansion — Quarantine Zone, Anomaly Zones, Contested Zones unlock per arc</div>
       <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>The Changed AI — swarm, ambush, brute variants</div>
       <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Architect AI — Sentinels, Wardens, phase-shift behaviour</div>
     </div>
@@ -650,6 +835,7 @@
       <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Wraith Division AI — elite ambush, extraction denial</div>
       <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Faction reputation system — tracking, vendors, HQ contacts</div>
       <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Full HQ evolution — rooms unlock through arcs, lore archive fills</div>
+      <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Bounty system — Bounty Boards, Marked players, Hunter toggle, bounty events</div>
       <div class="milestone"><div class="ms-dot" style="background:var(--blue)"></div>Faction cosmetics — Covenant and Severed visual identity applied post-Arc 3</div>
     </div>
   </div>
@@ -700,7 +886,7 @@
 </div>
 
 <div class="footer">
-  BLACKSITE: Watchdog Protocol &nbsp;·&nbsp; Vanguard Solutions &nbsp;·&nbsp; Watchdog operative eyes only &nbsp;·&nbsp; CONFIDENTIAL
+  BLACKSITE: Watchdog Protocol &nbsp;·&nbsp; Vanguard Solutions &nbsp;·&nbsp; Watchdog operative eyes only
 </div>
 
 </body>
